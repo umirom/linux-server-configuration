@@ -74,7 +74,7 @@ Go to tab *Networking* --> section *Firewall*
 
 ``$ sudo nano /etc/ssh/sshd_config``
 
-*Modify to section of file:
+*Modify top section of file:*
 
 ````
 #What ports, IPs and protocols we listen for
@@ -215,11 +215,11 @@ $ sudo pip install oauth2client requests httplib2
 
 ``$ cd /var/www/catalog``
 
-``$ git clone [URL to my github repository]``
+``$ git clone https://github.com/umirom/itemsCatalog.git``
 
 Now the folder with all my project files sits inside the newly created application directory.
 
-**Rename the repository and the file that contains the application logic for ease of use
+**Rename the repository and the file that contains the application logic for ease of use**
 
 In my case, the cloned repository had the name *itemsCatalog* and the file with the main application logic was called *recipes.py*.
 
@@ -240,21 +240,21 @@ $ sudo mv recipes.py __init__.py
 
 Now, my file structure looks as follows:
 
-|var
+/var
 
-||www
+	//www
 
- ||catalog
+ 		///catalog
  
-  ||catalog
+  			////catalog
   
-   ||__ init __ .py
+   				/////__ init __ .py
    
-   ||static
+   				/////static
    
-   ||teplates
+  				/////teplates
    
-   ||*etc* *etc*
+   				/////*etc* *etc*
 
 ## 14. Create WSGI file inside the new directory
 
@@ -264,25 +264,26 @@ Now, my file structure looks as follows:
 
 Now, my file structure looks as follows:
 
-|var
+/var
 
-||www
+	
+	//www
 
- ||catalog.wsgi
+ 		///catalog.wsgi
  
- ||catalog
+ 		///catalog
  
-  ||catalog
+  			////catalog
   
-   ||__ init __ .py
+   				/////__ init __ .py
    
-   ||static
+   				/////static
    
-   ||teplates
+   				/////teplates
    
-   ||*etc* 
+   				/////*etc* 
 
-P*aste the following content inside the catalog.wsgi file and verify that the path and the module name for the import are correct and that the application secret key is identical to the one in __ init __ .py:*
+*Paste the following content inside the catalog.wsgi file and verify that the path and the module name for the import are correct and that the application secret key is identical to the one in __ init __ .py:*
 
 ````#WSGI File
 import sys
@@ -338,12 +339,14 @@ application.secret_key = 'super-secret_key'
 Open the project file /var/www/catalog/catalog/database_setup.py and update the engine connection:
 
 ``engine = create_engine('postgresql://catalog:[password]@localhost/catalog')``
-<small>[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"</small>
+
+[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"
 
 Then, open the project file with the python logic /var/www/catalog/catalog/__init__.py and update the engine connection here as well:
 
 ``engine = create_engine('postgresql://catalog:[password]@localhost/catalog')``
-<small>[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"</small>
+
+[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"
 
 Create database schema by running database_setup.py
 
