@@ -10,13 +10,13 @@ This document lists chronologically my steps taken to complete the project.
 
 ## 1. Create Lightsail instance & server details
 
-I created an instance of AWS Lightsail to host my application by following the instructions given on https://lightsail.aws.amazon.com.
+I created an instance of AWS Lightsail to host my application according to the instructions given on https://lightsail.aws.amazon.com.
 
 **Instance blueprint:** OS only - Ubuntu 16.04 LTS
 
 **Instance name:** copper-ocean
 
-*The following instance details will allow the Udacity Grader to access the deployment and the server:*
+***The following instance details will allow the Udacity Grader to access the deployment and the server:***
 
 **Public IP:** 18.184.74.41
 
@@ -28,15 +28,15 @@ I created an instance of AWS Lightsail to host my application by following the i
 
 ## 2. Connect to the server from my local client
 
-Download default key pair for my region from AWS Lightsail
+*Download default key pair for my region from AWS Lightsail*
 
-Store the file *file-with-lightsail-key.pem* locally as ``~/.ssh/[file-with-lightsail-key.pem]`` and modify the file permissions:
+*Store the file locally as ``~/.ssh/file-with-lightsail-key.pem`` and modify the file permissions:*
 
 ``$ cd ~/.ssh``
 
 ``$ chmod 600 file-with-lightsail-key.pem``
 
-Connect to server from my local terminal: 
+*Connect to server from my local terminal:*
 
 ``$ ssh ubuntu@public-ip -i ~/.ssh/file-with-lightsail-key.pem``
 
@@ -54,11 +54,11 @@ Connect to server from my local terminal:
 
 ``$ sudo visudo``
 
-Add grader permissions to visudo in section *#user privilege specification*:
+*Add grader permissions to visudo in section **#user privilege specification**:*
 
 ``grader ALL=(ALL:ALL) ALL``
 
-Login as grader to check if everything worked:
+*Login as grader to check if everything worked:*
 
 ``$ sudo login grader``
 
@@ -74,7 +74,7 @@ Go to tab *Networking* --> section *Firewall*
 
 ``$ sudo nano /etc/ssh/sshd_config``
 
-Modify file at section:
+*Modify to section of file:
 
 ````
 #What ports, IPs and protocols we listen for
@@ -83,12 +83,12 @@ Port 2200
 ````
 
 
-Then restart sshd:
+*Then restart sshd:*
 
 ``$ sudo service sshd restart``
 
 
-Now I am able to log in from my local terminal:
+*Now I am able to log in from my local terminal:*
 
 ``$ ssh ubuntu@[public-ip] -i ~/.ssh/[file-with-lightsail-key.pem] -p 2200``
 
@@ -98,9 +98,11 @@ Now I am able to log in from my local terminal:
 
 ``$ ssh-keygen``
 
-Store on local machine as ``~/.ssh/[name-of-key-gen-file]``
+*Store on local machine as ``~/.ssh/[name-of-key-gen-file]``*
 
-**On server, log in as user *grader* and create a new directory for the file *authorized keys* **
+**On server**
+
+*log in as user **grader** and create a new directory for the file **authorized keys***
 
 ``$ sudo login grader``
 
@@ -108,7 +110,7 @@ Store on local machine as ``~/.ssh/[name-of-key-gen-file]``
 
 ``$ sudo nano /home/grader/.ssh/authorized_keys``
 
-**Paste content of locally generated and stored public key document into the *authorized_keys* file.**
+*Paste content of locally generated and stored public key document into the **authorized_keys** file.*
 
 Now I am able to log in as *grader* from my local terminal without providing a password:
 
@@ -144,11 +146,11 @@ Select *None of the above* and then *UTC*
 
 ``$ sudo apt-get install libapache2-mod-wsgi python-dev``
 
-**Enable WSGI:**
+*Enable WSGI:*
 
 ``$ sudo a2enmod wsgi``
 
-**Restart Apache:**
+*Restart Apache:*
 
 ``$ sudo apache2ctl restart``
 
@@ -158,11 +160,11 @@ Now, when visiting the public IP in a browser, the Apache default page is on dis
 
 ``$ sudo apt-get install postgresql postgresql-contrib``
 
-Make sure that no remote connections are allowed:
+*Make sure that no remote connections are allowed:*
 
 ``$ sudo nano /etc/postgresql/9.5/main/pg_hba.conf``
 
-Log in to psql als postgres default user:
+*Log in to psql als postgres default user:*
 
 ``$ sudo su postgres``
 
@@ -196,7 +198,7 @@ Log in to psql als postgres default user:
 
 ``$ sudo mkdir catalog``
 
-Make grader the owner of the new diretory:
+*Make grader the owner of the new diretory:*
 
 ``$ sudo chown -R grader:grader catalog``
 
@@ -221,15 +223,15 @@ Now the folder with all my project files sits inside the newly created applicati
 
 In my case, the cloned repository had the name *itemsCatalog* and the file with the main application logic was called *recipes.py*.
 
-Make sure to be inside the application directory:
+*Make sure to be inside the application directory:*
 
 ``$ cd /var/www/catalog``
 
-Rename the directory that holds the repository:
+*Rename the directory that holds the repository:*
 
 ``$ sudo mv ./itemsCatalog ./catalog`` 
 
-Rename the file with the application logic:
+*Rename the file with the application logic:*
 
 ````
 $ cd /var/www/catalog/catalog
@@ -239,33 +241,48 @@ $ sudo mv recipes.py __init__.py
 Now, my file structure looks as follows:
 
 |var
+
 ||www
+
  ||catalog
+ 
   ||catalog
-   ||__init__.py
+  
+   ||__ init __ .py
+   
    ||static
+   
    ||teplates
+   
    ||*etc* *etc*
 
 ## 14. Create WSGI file inside the new directory
 
-Make sure to create the file in the top-level catalog directory:
+*Make sure to create the file in the top-level catalog directory:*
 
 ``$ sudo nano /var/www/catalog/catalog.wsgi``
 
 Now, my file structure looks as follows:
 
 |var
+
 ||www
+
  ||catalog.wsgi
+ 
  ||catalog
+ 
   ||catalog
-   ||__init__.py
+  
+   ||__ init __ .py
+   
    ||static
+   
    ||teplates
+   
    ||*etc* 
 
-Paste the following content inside the catalog.wsgi file and verify that the path and the module name for the import are correct and that the application secret key is identical to the one in __init__.py:
+P*aste the following content inside the catalog.wsgi file and verify that the path and the module name for the import are correct and that the application secret key is identical to the one in __ init __ .py:*
 
 ````#WSGI File
 import sys
@@ -278,11 +295,11 @@ application.secret_key = 'super-secret_key'
 ````
 ## 15. Create Virtual Host File and enable it
 
-Create a new conf-file for the application inside /etc/apache2/sites-available
+*Create a new .conf-file for the application inside /etc/apache2/sites-available*
 
 ``$ sudo nano /etc/apache2/sites-available/catalog.conf``
 
-Add code to the catalog.conf file and verify that ServerName, ServerAdmin and all indicated paths are correct:
+*Add code to the catalog.conf file and verify that ServerName, ServerAdmin and all indicated paths are correct:*
 
 ````
 <VirtualHost *:80>
@@ -304,15 +321,15 @@ Add code to the catalog.conf file and verify that ServerName, ServerAdmin and al
 </VirtualHost>
 ````
 
-Enable virtual host for my application:
+*Enable virtual host for my application:*
 
 ``$ sudo a2ensite catalog.conf``
 
-Disable default Apache site:
+*Disable default Apache site:*
 
 ``$ sudo a2dissite 000-default.conf``
 
-Restart Apache:
+*Restart Apache:*
 
 ``$ sudo service apache2 restart``
 
@@ -320,11 +337,13 @@ Restart Apache:
 
 Open the project file /var/www/catalog/catalog/database_setup.py and update the engine connection:
 
-``engine = create_engine('postgresql://catalog:catalog@localhost/catalog')``
+``engine = create_engine('postgresql://catalog:[password]@localhost/catalog')``
+<small>[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"</small>
 
 Then, open the project file with the python logic /var/www/catalog/catalog/__init__.py and update the engine connection here as well:
 
-``engine = create_engine('postgresql://catalog:catalog@localhost/catalog')``
+``engine = create_engine('postgresql://catalog:[password]@localhost/catalog')``
+<small>[password] is referring to the password I created for the user *catalog* (step 10) - in may case "catalog"</small>
 
 Create database schema by running database_setup.py
 
