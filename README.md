@@ -1,26 +1,43 @@
 # Final project: Linux server configuration
 
-## Create Lightsail instance & server details
+## Project Details:
 
-**Server name:** copper-ocean
+**Project overview (as defined by udacity.com):
+
+"You will take a baseline installation of a Linux server and prepare it to host your web applications. You will secure your server from a number of attack vectors, install and configure a database server, and deploy one of your existing web applications onto it."
+
+This document lists chronologically my steps taken to complete the project.
+
+## 1. Create Lightsail instance & server details
+
+I created an instance of AWS Lightsail to host my application by following the instructions given on (https://lightsail.aws.amazon.com).
+
+**Instance blueprint:** OS only - Ubuntu 16.04 LTS
+
+**Instance name:** copper-ocean
+
+*The following instance details will allow the Udacity Grader to access the deployment and the server:*
 
 **Public IP:** 18.184.74.41
 
-**Port:** 2200
+**Accessible SSH-Port:** 2200
 
-**Application URL:** [XXX]
+**Application URL:** (http://18.184.74.41)
 
-## Connect from my local client
+<hr/>
+
+## 2. Connect to the server from my local client
 
 Download default key pair for my region from AWS Lightsail
 
-Store it locally in ~/.ssh
+Store the file [file-with-lightsail-key.pem] locally in ~/.ssh and modify the file permissions
 
-`` $ cd ~/.ssh``
+```` $ cd ~/.ssh
+$ chmod 600 [file-with-lightsail-key.pem]````
 
-``$ chmod 600 [file-with-lightsail-key.pem]``
+Connect to server from my local terminal: 
 
-Connect to server from my local terminal: ``$ ssh ubuntu@[public-ip] -i ~/.ssh/[file-with-lightsail-key.pem]``
+``$ ssh ubuntu@[public-ip] -i ~/.ssh/[file-with-lightsail-key.pem]``
 
 ## Update and upgrade server, install finger for easier user management
 
