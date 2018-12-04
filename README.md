@@ -365,6 +365,18 @@ CLIENT_ID = json.loads(
 oauth_flow=
 flow_from_clientsecrets('/var/www/catalog/catalog/client_secrets.json', scope='')
 ````
+<hr/>
+
+## References
+
+https://knowledge.udacity.com/
+
+https://github.com/harushimo/linux-server-configuration
+
+https://github.com/kongling893/Linux-Server-Configuration-UDACITY
+
+https://github.com/Pedroknoll/Linux-server-configuration
+
 
 
 
