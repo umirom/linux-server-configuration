@@ -2,7 +2,7 @@
 
 ## Project Details:
 
-**Project overview (as defined by udacity.com):
+**Project overview as defined by www.udacity.com:**
 
 "You will take a baseline installation of a Linux server and prepare it to host your web applications. You will secure your server from a number of attack vectors, install and configure a database server, and deploy one of your existing web applications onto it."
 
@@ -32,12 +32,12 @@ Download default key pair for my region from AWS Lightsail
 
 Store the file [file-with-lightsail-key.pem] locally in ~/.ssh and modify the file permissions
 
-```` $ cd ~/.ssh
-$ chmod 600 [file-with-lightsail-key.pem]````
+''$ cd ~/.ssh''
+''$ chmod 600 file-with-lightsail-key.pem``
 
 Connect to server from my local terminal: 
 
-``$ ssh ubuntu@[public-ip] -i ~/.ssh/[file-with-lightsail-key.pem]``
+``$ ssh ubuntu@public-ip -i ~/.ssh/file-with-lightsail-key.pem``
 
 ## Update and upgrade server, install finger for easier user management
 
